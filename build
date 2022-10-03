@@ -1,0 +1,51 @@
+#!/bin/bash
+#
+# build - compile and optionally install any2ascii
+#
+
+build_jp2a() {
+  #
+  # Repo: https://github.com/doctorfree/Asciiville
+  #
+  # Fork of Repo: https://github.com/cslarsen/jp2a
+  #
+  [ -f src/jp2a ] || {
+    prefix="--prefix=/usr"
+    [ "${PREFIX}" ] && prefix="--prefix=${PREFIX}"
+    autoreconf -vi
+    ./configure ${prefix} --enable-curl --enable-termlib
+    make -j
+  }
+
+  chmod +x src/jp2a
+
+  [ "${INSTALL}" ] && sudo PREFIX=${PREFIX} make install
+}
+
+usage() {
+    printf "\nUsage: ./build [-i] [-p prefix] [-u]"
+    printf "\nWhere:"
+    printf "\n\t-i indicates install"
+    printf "\n\t-p prefix specifies installation prefix (default /usr)"
+    printf "\n\t-u displays this usage message and exits\n"
+    exit 1
+}
+
+INSTALL=
+PREFIX=/usr
+while getopts "ip:u" flag; do
+    case $flag in
+        i)
+            INSTALL=1
+            ;;
+        p)
+            PREFIX="$OPTARG"
+            ;;
+        u)
+            usage
+            ;;
+    esac
+done
+shift $(( OPTIND - 1 ))
+
+build_jp2a
