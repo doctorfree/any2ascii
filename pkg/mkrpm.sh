@@ -38,18 +38,9 @@ PKGS="automake libtool ncurses-devel"
 ${SUDO} dnf -y groupinstall "Development Tools" "Development Libraries"
 ${SUDO} dnf -y install ${PKGS} pandoc zip
 
-# Build aewan
-if [ -x build ]
-then
-  ./build
-else
-  [ -f aewan ] || {
-    autoreconf -vi
-    ./configure --prefix=/usr
-    make
-  }
-fi
-chmod +x aewan aecat aemakeflic
+# Build any2ascii
+./build
+# chmod +x aewan aecat aemakeflic
 
 ${SUDO} rm -rf dist
 mkdir dist
@@ -60,24 +51,22 @@ mkdir ${OUT_DIR}
 for dir in "${DESTDIR}" "${DESTDIR}/bin" "${DESTDIR}/share" \
            "${DESTDIR}/share/doc" "${DESTDIR}/share/doc/${PKG}" \
            "${DESTDIR}/share/man" "${DESTDIR}/share/man/man1" \
-           "${DESTDIR}/share/man/man5" "${DESTDIR}/share/${PKG}"
+           "${DESTDIR}/share/${PKG}"
 do
     [ -d ${OUT_DIR}/${dir} ] || ${SUDO} mkdir ${OUT_DIR}/${dir}
     ${SUDO} chown root:root ${OUT_DIR}/${dir}
 done
 
 # Install any2ascii
-${SUDO} cp aewan aecat aemakeflic ${OUT_DIR}/${DESTDIR}/bin
-${SUDO} cp man/man1/*.1 ${OUT_DIR}/${DESTDIR}/share/man/man1
-${SUDO} cp man/man5/*.5 ${OUT_DIR}/${DESTDIR}/share/man/man5
-
-${SUDO} cp aewan-README ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
+${SUDO} cp src/jp2a ${OUT_DIR}/${DESTDIR}/bin/jp2a
+${SUDO} cp COPYING ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}/COPYING
+${SUDO} cp README ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}/README
+${SUDO} cp LICENSES ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}/LICENSES
+${SUDO} cp man/jp2a.1 ${OUT_DIR}/${DESTDIR}/share/man/man1
 ${SUDO} cp copyright ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
 ${SUDO} cp CHANGELOG ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
-${SUDO} cp COPYING ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
 ${SUDO} cp README.md ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
 ${SUDO} cp LICENSE ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
-${SUDO} cp TODO ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
 ${SUDO} cp VERSION ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
 ${SUDO} pandoc -f gfm README.md | ${SUDO} tee ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}/README.html > /dev/null
 ${SUDO} gzip -9 ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}/CHANGELOG

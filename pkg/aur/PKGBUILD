@@ -22,7 +22,7 @@ fi
 pkgname=any2ascii
 pkgver=v${VERSION}r${RELEASE}
 pkgrel=${PACKAGE}
-pkgdesc="NCurses Ascii Art Editor"
+pkgdesc="Convert any format image file to an Ascii Art text file"
 arch=('x86_64' 'armv7h')
 url="https://github.com/doctorfree/any2ascii"
 license=('GPL2')
@@ -39,9 +39,10 @@ prepare() {
 build() {
   cd "${srcdir}/${pkgname}"
   autoreconf -vi
-  ./configure --prefix=/usr
-  make
-  chmod +x aewan aecat aemakeflic
+  ./configure --prefix=/usr --enable-curl --enable-termlib
+  make clean
+  make -j
+  chmod +x src/jp2a
 }
 
 package() {
@@ -53,22 +54,20 @@ package() {
     "${destdir}/share/doc/${pkgname}" \
     "${destdir}/share/man" \
     "${destdir}/share/man/man1" \
-    "${destdir}/share/man/man5" \
     "${destdir}/share/${pkgname}"
   do
     [ -d ${pkgdir}/${dir} ] || mkdir ${pkgdir}/${dir}
   done
 
-  cp aewan aecat aemakeflic ${pkgdir}/${destdir}/bin
-  cp man/man1/*.1 ${pkgdir}/${destdir}/share/man/man1
-  cp man/man5/*.5 ${pkgdir}/${destdir}/share/man/man5
-  cp aewan-README ${pkgdir}/${destdir}/share/doc/${pkgname}
+  cp src/jp2a ${pkgdir}/${destdir}/bin/jp2a
+  cp man/jp2a.1 ${pkgdir}/${destdir}/share/man/man1
+
+  cp COPYING ${pkgdir}/${destdir}/share/doc/${pkgname}/COPYING
+  cp README ${pkgdir}/${destdir}/share/doc/${pkgname}/README
   cp copyright ${pkgdir}/${destdir}/share/doc/${pkgname}
   cp CHANGELOG ${pkgdir}/${destdir}/share/doc/${pkgname}
-  cp COPYING ${pkgdir}/${destdir}/share/doc/${pkgname}
   cp README.md ${pkgdir}/${destdir}/share/doc/${pkgname}
   cp LICENSE ${pkgdir}/${destdir}/share/doc/${pkgname}
-  cp TODO ${pkgdir}/${destdir}/share/doc/${pkgname}
   cp VERSION ${pkgdir}/${destdir}/share/doc/${pkgname}
   pandoc -f gfm README.md | \
     tee ${pkgdir}/${destdir}/share/doc/${pkgname}/README.html > /dev/null
