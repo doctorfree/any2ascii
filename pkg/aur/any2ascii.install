@@ -4,5 +4,5 @@ post_install() {
 
 read -d '' mppin <<'EOF'
 Additional info at:
-  - https://github.com/doctorfree/asciiville-aewan#readme
+  - https://github.com/doctorfree/any2ascii#readme
 EOF

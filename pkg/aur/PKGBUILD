@@ -8,7 +8,7 @@ if [ -f VERSION ]
 then
   . ./VERSION
 else
-  [ "${SRC}" ] || SRC="${HOME}/src/asciiville-aewan"
+  [ "${SRC}" ] || SRC="${HOME}/src/any2ascii"
   if [ -f ${SRC}/VERSION ]
   then
     . ${SRC}/VERSION
@@ -19,17 +19,17 @@ else
   fi
 fi
 
-pkgname=asciiville-aewan
+pkgname=any2ascii
 pkgver=v${VERSION}r${RELEASE}
 pkgrel=${PACKAGE}
 pkgdesc="NCurses Ascii Art Editor"
 arch=('x86_64' 'armv7h')
-url="https://github.com/doctorfree/asciiville-aewan"
+url="https://github.com/doctorfree/any2ascii"
 license=('GPL2')
 depends=(ncurses zlib)
 makedepends=(pandoc zip)
-install=asciiville-aewan.install
-source=("${pkgname}::git+https://github.com/doctorfree/asciiville-aewan.git")
+install=any2ascii.install
+source=("${pkgname}::git+https://github.com/doctorfree/any2ascii.git")
 sha256sums=('SKIP')
 
 prepare() {

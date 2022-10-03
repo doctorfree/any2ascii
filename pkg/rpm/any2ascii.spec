@@ -1,18 +1,17 @@
-Name: asciiville-aewan
+Name: any2ascii
 Version:    %{_version}
 Release:    %{_release}%{?dist}
 BuildArch:  x86_64
 Requires:   ncurses, zlib
-URL:        https://github.com/doctorfree/asciiville-aewan
+URL:        https://github.com/doctorfree/any2ascii
 Vendor:     Doctorwhen's Bodacious Laboratory
 Packager:   ronaldrecord@gmail.com
 License     : GPL2
-Summary     : NCurses Ascii Art Editor
+Summary     : Convert any format image file to an Ascii Art text file
 
 %global __os_install_post %{nil}
 
 %description
-Aewan is a curses-based program for the creation and editing of ascii art
 
 %prep
 
