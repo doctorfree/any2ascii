@@ -16,3 +16,4 @@ missing
 src/.deps
 src/jp2a
 stamp-h1
+tmp/

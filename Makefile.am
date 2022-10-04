@@ -3,7 +3,7 @@ SUBDIRS = src
 man_MANS = man/jp2a.1
 bashcompdir = @bashcompdir@
 dist_bashcomp_DATA = completion/bash/jp2a
-EXTRA_DIST = tests/??*.txt tests/??*.html tests/??*.jpg tests/??*.png tests/run-tests.sh tests/Makefile include/??*.h man/jp2a.1 Doxyfile.in LICENSES
+EXTRA_DIST = tests/??*.txt tests/??*.html tests/??*.jpg tests/??*.png tests/run-tests.sh tests/Makefile include/??*.h man/jp2a.1 Doxyfile.in LICENSE
 MOSTLYCLEANFILES =
 CLEANFILES = Doxyfile
 

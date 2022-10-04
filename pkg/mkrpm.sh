@@ -61,7 +61,6 @@ done
 ${SUDO} cp src/jp2a ${OUT_DIR}/${DESTDIR}/bin/jp2a
 ${SUDO} cp COPYING ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}/COPYING
 ${SUDO} cp README ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}/README
-${SUDO} cp LICENSES ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}/LICENSES
 ${SUDO} cp man/jp2a.1 ${OUT_DIR}/${DESTDIR}/share/man/man1
 ${SUDO} cp copyright ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
 ${SUDO} cp CHANGELOG ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
