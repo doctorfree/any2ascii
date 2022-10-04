@@ -1,3 +1,8 @@
+CHANGES SINCE move to any2ascii repository (version 1.0.0 release 1)
+- Split jp2a out of Asciiville project into standalone repository 'any2ascii'
+- Add 'any2a' command to convert any image format to jpeg then ascii
+- Packaging and distribution for Arch, Fedora, Raspberry Pi OS, and Ubuntu
+
 CHANGES SINCE 1.1.1
 - Fix images with very high aspect ratio, e.g. 3000:1
 
