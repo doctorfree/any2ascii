@@ -1,5 +1,6 @@
 *.swp
 *.o
+INSTALL
 Makefile
 Makefile.in
 aclocal.m4
@@ -15,6 +16,8 @@ install-sh
 missing
 src/.deps
 src/jp2a
+src/Makefile
+src/Makefile.in
 stamp-h1
 tmp/
 dist/
