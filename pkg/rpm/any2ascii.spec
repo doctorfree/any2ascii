@@ -2,7 +2,7 @@ Name: any2ascii
 Version:    %{_version}
 Release:    %{_release}%{?dist}
 BuildArch:  x86_64
-Requires:   ncurses, zlib
+Requires:   curl, ImageMagick, libjpeg-turbo, libpng
 URL:        https://github.com/doctorfree/any2ascii
 Vendor:     Doctorwhen's Bodacious Laboratory
 Packager:   ronaldrecord@gmail.com
