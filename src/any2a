@@ -1,0 +1,18 @@
+#!/bin/bash
+
+have_convert=`type -p convert`
+[ "${have_convert}" ] || {
+  echo "any2a requires the convert utility."
+  echo "install ImageMagick and try again."
+  echo "exiting"
+  exit 1
+}
+
+for img in $*
+do
+  [ -f "${img}" ] || {
+    echo "Cannot locate ${img}. Skipping conversion."
+    continue
+  }
+  convert ${img} jpg:- | jp2a - --width=80
+done

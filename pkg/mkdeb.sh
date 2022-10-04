@@ -65,7 +65,7 @@ Version: ${PKG_VER}-${PKG_REL}
 Section: misc
 Priority: optional
 Architecture: ${ARCH}
-Depends: libncursesw6 (>= 6), zlib1g
+Depends: libjpeg-dev, libpng-dev
 Maintainer: ${DEBFULLNAME} <${DEBEMAIL}>
 Build-Depends: debhelper (>= 11)
 Homepage: https://github.com/doctorfree/any2ascii
@@ -84,6 +84,7 @@ done
 
 # Install any2ascii
 ${SUDO} cp src/jp2a ${OUT_DIR}/${DESTDIR}/bin/jp2a
+${SUDO} cp src/any2a ${OUT_DIR}/${DESTDIR}/bin/any2a
 ${SUDO} cp man/jp2a.1 ${OUT_DIR}/${DESTDIR}/share/man/man1
 
 ${SUDO} cp AUTHORS ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}/AUTHORS
@@ -97,7 +98,7 @@ ${SUDO} cp LICENSE ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
 ${SUDO} cp NEWS ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
 ${SUDO} cp VERSION ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}
 ${SUDO} pandoc -f gfm README.md | ${SUDO} tee ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}/README.html > /dev/null
-${SUDO} gzip -9 ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}/CHANGELOG
+${SUDO} gzip -9 ${OUT_DIR}/${DESTDIR}/share/doc/${PKG}/ChangeLog
 
 ${SUDO} chmod 755 ${OUT_DIR}/${DESTDIR}/bin/* ${OUT_DIR}/${DESTDIR}/bin
 ${SUDO} chown -R root:root ${OUT_DIR}/${DESTDIR}
