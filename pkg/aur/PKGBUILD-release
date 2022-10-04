@@ -7,7 +7,7 @@ pkgdesc="Convert any format image file to an Ascii Art text file"
 arch=('x86_64' 'armv7h')
 url="https://github.com/doctorfree/any2ascii"
 license=('GPL2')
-depends=('curl' 'libjpeg' 'libpng' 'imagemagick6')
+depends=('curl' 'libjpeg' 'libpng' 'imagemagick')
 makedepends=('pandoc' 'zip' 'doxygen' 'autoconf-archive' 'git')
 install=any2ascii.install
 source=("${pkgname}::git+https://github.com/doctorfree/any2ascii.git#tag=${pkgver}")
