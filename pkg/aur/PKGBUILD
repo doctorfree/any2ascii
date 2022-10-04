@@ -34,11 +34,11 @@ sha256sums=('SKIP')
 
 prepare() {
   cd "${srcdir}/${pkgname}"
+  autoreconf -vi
 }
 
 build() {
   cd "${srcdir}/${pkgname}"
-  autoreconf -vi
   ./configure --prefix=/usr --enable-curl --enable-termlib
   make clean
   make -j
