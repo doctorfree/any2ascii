@@ -1,7 +1,7 @@
 # Maintainer: Ronald Record <github@ronrecord.com>
 
 pkgname=any2ascii
-pkgver=v1.0.0r1
+pkgver=v1.0.1r1
 pkgrel=1
 pkgdesc="Convert any format image file to an Ascii Art text file"
 arch=('x86_64' 'armv7h')

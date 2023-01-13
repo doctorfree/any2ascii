@@ -14,19 +14,19 @@ Download the [latest Debian, Arch, or RPM package format release](https://github
 Install the package on Debian based systems by executing the command:
 
 ```bash
-sudo apt install ./any2ascii_1.0.0-1.amd64.deb
+sudo apt install ./any2ascii_1.0.1-1.amd64.deb
 ```
 
 or, on a Raspberry Pi:
 
 ```bash
-sudo apt install ./any2ascii_1.0.0-1.armhf.deb
+sudo apt install ./any2ascii_1.0.1-1.armhf.deb
 ```
 
 Install the package on Arch Linux based systems by executing the command:
 
 ```bash
-sudo pacman -U ./any2ascii-v1.0.0r1-1-x86_64.pkg.tar.zst
+sudo pacman -U ./any2ascii-v1.0.1r1-1-x86_64.pkg.tar.zst
 ```
 
 Install the package on RPM based systems by executing the following command:
@@ -34,15 +34,15 @@ Install the package on RPM based systems by executing the following command:
 On Fedora Linux:
 
 ```bash
-sudo yum localinstall ./any2ascii_1.0.0-1.fc36.x86_64.rpm
+sudo yum localinstall ./any2ascii_1.0.1-1.fc36.x86_64.rpm
 ```
 
 ### PKGBUILD Installation
 
-To rebuild this package from sources on Arch Linux, extract `any2ascii-pkgbuild-1.0.0-1.tar.gz` and use the `makepkg` command to download the sources, build the binaries, and create the installation package:
+To rebuild this package from sources on Arch Linux, extract `any2ascii-pkgbuild-1.0.1-1.tar.gz` and use the `makepkg` command to download the sources, build the binaries, and create the installation package:
 
 ```
-tar xzf any2ascii-pkgbuild-1.0.0-1.tar.gz
+tar xzf any2ascii-pkgbuild-1.0.1-1.tar.gz
 cd any2ascii
 makepkg --force --log --cleanbuild --noconfirm --syncdeps
 ```
@@ -85,6 +85,10 @@ cd any2ascii
 The `mkpkg` script detects the platform and creates an installable package in the package format native to that platform. After successfully building any2ascii, the resulting installable package will be found in the `./releases/<version>/` directory.
 
 ## Changelog
+
+Changes in version 1.0.1 release 1 include:
+
+* Changed ImageMagick dependency in Debian packaging
 
 Changes in version 1.0.0 release 1 include:
 

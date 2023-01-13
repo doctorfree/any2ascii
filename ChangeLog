@@ -1,3 +1,6 @@
+CHANGES SINCE 1.0.0 release 1
+- Changed Debian packaging ImageMagick dependency
+
 CHANGES SINCE move to any2ascii repository (version 1.0.0 release 1)
 - Split jp2a out of Asciiville project into standalone repository 'any2ascii'
 - Add 'any2a' command to convert any image format to jpeg then ascii
