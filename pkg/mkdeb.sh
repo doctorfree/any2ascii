@@ -65,7 +65,7 @@ Version: ${PKG_VER}-${PKG_REL}
 Section: misc
 Priority: optional
 Architecture: ${ARCH}
-Depends: curl, libjpeg-dev, libpng-dev, graphicsmagick-imagemagick-compat
+Depends: curl, libjpeg-dev, libpng-dev, imagemagick
 Maintainer: ${DEBFULLNAME} <${DEBEMAIL}>
 Build-Depends: debhelper (>= 11)
 Homepage: https://github.com/doctorfree/any2ascii

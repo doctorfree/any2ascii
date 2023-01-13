@@ -9,6 +9,7 @@ pkgbase = any2ascii
 	license = GPL2
 	makedepends = pandoc
 	makedepends = zip
+	depends = imagemagick
 	depends = ncurses
 	depends = zlib
 	source = any2ascii::git+https://github.com/doctorfree/any2ascii.git
