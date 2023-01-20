@@ -32,7 +32,13 @@ usage() {
 }
 
 INSTALL=
-PREFIX=/usr
+platform=`uname -s`
+if [ "${platform}" == "Darwin" ]
+then
+  PREFIX="/usr/local"
+else
+  PREFIX="/usr"
+fi
 while getopts "ip:u" flag; do
     case $flag in
         i)
@@ -52,76 +58,91 @@ arch=
 centos=
 debian=
 fedora=
-[ -f /etc/os-release ] && . /etc/os-release
-[ "${ID_LIKE}" == "debian" ] && debian=1
-[ "${ID}" == "arch" ] && arch=1
-[ "${ID}" == "centos" ] && centos=1
-[ "${ID}" == "fedora" ] && fedora=1
-[ "${debian}" ] || [ -f /etc/debian_version ] && debian=1
+darwin=
 
-if [ "${debian}" ]
+if [ "${platform}" == "Darwin" ]
 then
-  PKGS="build-essential autotools-dev autoconf libtool \
-        tar zstd make g++ libjpeg62-turbo-dev libpng-dev \
-        gcc-10 g++-10 cpp-10"
-  if [ "$1" == "-r" ]
-  then
-    sudo apt remove ${PKGS}
-  else
-    sudo apt install ${PKGS} pandoc zip
-    sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100 \
-        --slave /usr/bin/g++ g++ /usr/bin/g++-10 \
-        --slave /usr/bin/gcov gcov /usr/bin/gcov-10
-  fi
+  darwin=1
+  brew install jpeg
+  brew install libpng
+  brew install pkg-config
 else
-  if [ "${arch}" ]
+  [ -f /etc/os-release ] && . /etc/os-release
+  [ "${ID_LIKE}" == "debian" ] && debian=1
+  [ "${ID}" == "arch" ] && arch=1
+  [ "${ID}" == "centos" ] && centos=1
+  [ "${ID}" == "fedora" ] && fedora=1
+  [ "${debian}" ] || [ -f /etc/debian_version ] && debian=1
+
+  if [ "${debian}" ]
   then
-    PKGS="base-devel"
+    PKGS="build-essential autotools-dev autoconf libtool \
+          tar zstd make g++ libjpeg62-turbo-dev libpng-dev \
+          gcc-10 g++-10 cpp-10"
     if [ "$1" == "-r" ]
     then
-      sudo pacman -Rs ${PKGS}
+      sudo apt remove ${PKGS}
     else
-      sudo pacman -S --needed ${PKGS} pandoc zip
+      sudo apt install ${PKGS} pandoc zip
+      sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100 \
+          --slave /usr/bin/g++ g++ /usr/bin/g++-10 \
+          --slave /usr/bin/gcov gcov /usr/bin/gcov-10
     fi
   else
-    have_dnf=`type -p dnf`
-    if [ "${have_dnf}" ]
+    if [ "${arch}" ]
     then
-      PINS=dnf
-    else
-      PINS=yum
-    fi
-    sudo ${PINS} makecache
-    if [ "${fedora}" ]
-    then
-      PKGS="libtool automake libjpeg-turbo-devel libpng-devel"
+      PKGS="base-devel"
       if [ "$1" == "-r" ]
       then
-        sudo ${PINS} -y remove ${PKGS}
-        sudo ${PINS} -y remove gcc-c++
-        sudo ${PINS} -y groupremove "Development Tools" "Development Libraries"
+        sudo pacman -Rs ${PKGS}
       else
-        sudo ${PINS} -y groupinstall "Development Tools" "Development Libraries"
-        sudo ${PINS} -y install gcc-c++
-        sudo ${PINS} -y install ${PKGS} pandoc zip
+        sudo pacman -S --needed ${PKGS} pandoc zip
       fi
     else
-      if [ "${centos}" ]
+      have_dnf=`type -p dnf`
+      if [ "${have_dnf}" ]
       then
-        sudo alternatives --set python /usr/bin/python3
+        PINS=dnf
+      else
+        PINS=yum
+      fi
+      sudo ${PINS} makecache
+      if [ "${fedora}" ]
+      then
         PKGS="libtool automake libjpeg-turbo-devel libpng-devel"
         if [ "$1" == "-r" ]
         then
           sudo ${PINS} -y remove ${PKGS}
           sudo ${PINS} -y remove gcc-c++
-          sudo ${PINS} -y groupremove "Development Tools"
+          sudo ${PINS} -y groupremove "Development Tools" "Development Libraries"
         else
-          sudo ${PINS} -y groupinstall "Development Tools"
+          sudo ${PINS} -y groupinstall "Development Tools" "Development Libraries"
           sudo ${PINS} -y install gcc-c++
           sudo ${PINS} -y install ${PKGS} pandoc zip
         fi
       else
-        echo "Unrecognized operating system"
+        if [ "${centos}" ]
+        then
+          sudo alternatives --set python /usr/bin/python3
+          PKGS="libtool automake libjpeg-turbo-devel libpng-devel"
+          if [ "$1" == "-r" ]
+          then
+            sudo ${PINS} -y remove ${PKGS}
+            sudo ${PINS} -y remove gcc-c++
+            sudo ${PINS} -y groupremove "Development Tools"
+          else
+            sudo ${PINS} -y groupinstall "Development Tools"
+            sudo ${PINS} -y install gcc-c++
+            sudo ${PINS} -y install ${PKGS} pandoc zip
+          fi
+        else
+          if [ "${darwin}" ]
+          then
+            echo "Install Mac dev env"
+          else
+            echo "Unrecognized operating system"
+          fi
+        fi
       fi
     fi
   fi
